@@ -35,6 +35,11 @@ public class NetworkClient : MonoBehaviour, INetEventListener
         Init();
     }
 
+    private void Update()
+    {
+        _netManager.PollEvents();
+    }
+
     public void Init()
     {
         _writer = new NetDataWriter();
