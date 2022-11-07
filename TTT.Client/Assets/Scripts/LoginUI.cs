@@ -1,27 +1,85 @@
+using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LoginUI : MonoBehaviour
 {
-    private Button _loginButton;
-    private Button _sendButton;
+    [SerializeField] int _maxUsernameLength = 10;
+    [SerializeField] int _maxPasswordLength = 10;
+
+    private Transform _loginButton;
+    private TextMeshProUGUI _loginText;
+    private TMP_InputField _usernameInput;
+    private Transform _usernameError;
+    private TMP_InputField _passwordInput;
+    private Transform _passwordError;
+
+
+    private string _username = string.Empty;
+    private string _password = string.Empty;
 
     private void Start()
     {
-        _loginButton = transform.Find("Connect").GetComponent<Button>();
-        _loginButton.onClick.AddListener(Connect);
+        _loginButton = transform.Find("LoginBtn");
+        _loginButton.GetComponent<Button>().onClick.AddListener(Login);
+        _loginText = _loginButton.transform.Find("Text").GetComponent<TextMeshProUGUI>();
 
-        _sendButton = transform.Find("Send").GetComponent<Button>();
-        _sendButton.onClick.AddListener(Send);
+        _usernameInput = transform.Find("UsernameInput").GetComponent<TMP_InputField>();
+        _usernameInput.onValueChanged.AddListener(UpdateUsername);
+        _usernameError = _usernameInput.transform.Find("Error");
+
+        _passwordInput = transform.Find("PasswordInput").GetComponent<TMP_InputField>();
+        _passwordInput.onValueChanged.AddListener(UpdatePassword);
+        _passwordError = _passwordInput.transform.Find("Error");
     }
 
-    private void Connect()
+    private void UpdatePassword(string value)
     {
-        NetworkClient.Instance.Connect();
+        _password = value;
+        ValidateAndUpdateUI();
     }
 
-    private void Send()
+    private void UpdateUsername(string value)
     {
-        NetworkClient.Instance.SendServer("Hello there!");
+        _username = value;
+        ValidateAndUpdateUI();
+    }
+
+    private void ValidateAndUpdateUI()
+    {
+        var usernameRegex = Regex.Match(_username, "^[a-zA-Z0-9]+$");
+
+        var interactable =
+            (!string.IsNullOrWhiteSpace(_username) &&
+            !string.IsNullOrWhiteSpace(_password)) &&
+            (_username.Length <= _maxUsernameLength && _password.Length <= _maxPasswordLength) &&
+            usernameRegex.Success;
+
+        EnableLoginButton(interactable);
+
+        if (_password != null)
+        {
+            var passwordTooLong = _password.Length > _maxPasswordLength;
+            _passwordError.gameObject.SetActive(passwordTooLong);
+        }
+
+        if (_username != null)
+        {
+            var usernameTooLong = _username.Length > _maxUsernameLength || !usernameRegex.Success;
+            _usernameError.gameObject.SetActive(usernameTooLong);
+        }
+    }
+
+    private void EnableLoginButton(bool interactable)
+    {
+        _loginButton.GetComponent<Button>().interactable = interactable;
+        var color = _loginButton.GetComponent<Button>().interactable ? Color.white : Color.gray;
+        _loginText.color = color;
+    }
+
+    private void Login()
+    {
+        Debug.Log("Loggining in!");
     }
 }
