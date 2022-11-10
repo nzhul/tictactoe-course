@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -14,7 +15,9 @@ public class LoginUI : MonoBehaviour
     private Transform _usernameError;
     private TMP_InputField _passwordInput;
     private Transform _passwordError;
+    private Transform _loadingUI;
 
+    private bool _isConnected;
 
     private string _username = string.Empty;
     private string _password = string.Empty;
@@ -32,6 +35,8 @@ public class LoginUI : MonoBehaviour
         _passwordInput = transform.Find("PasswordInput").GetComponent<TMP_InputField>();
         _passwordInput.onValueChanged.AddListener(UpdatePassword);
         _passwordError = _passwordInput.transform.Find("Error");
+
+        _loadingUI = transform.Find("Loading");
     }
 
     private void UpdatePassword(string value)
@@ -80,6 +85,26 @@ public class LoginUI : MonoBehaviour
 
     private void Login()
     {
-        Debug.Log("Loggining in!");
+        StopCoroutine(LoginRoutine());
+        StartCoroutine(LoginRoutine());
+    }
+
+    IEnumerator LoginRoutine()
+    {
+        EnableLoginButton(false);
+        _loadingUI.gameObject.SetActive(true);
+
+        NetworkClient.Instance.Connect();
+
+        while (!_isConnected)
+        {
+            Debug.Log("WAITING!");
+            yield return null;
+        }
+
+        Debug.Log("Connected to the server!");
+
+        //var authRequest = "authRequestObject";
+        //NetworkClient.Instance.SendServer(authRequest);
     }
 }
