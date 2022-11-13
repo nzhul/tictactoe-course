@@ -64,11 +64,11 @@
     <Compile Include="Assets\Scripts\NetworkClient.cs" />
     <Compile Include="Assets\Scripts\UI\Tweener.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanAudio.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_AuthRequest.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanSmooth.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanTest.cs" />
-    <Compile Include="Assets\Scripts\LoginUI.cs" />
-    <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_AuthRequest.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\PacketType.cs" />
+    <Compile Include="Assets\Scripts\LoginUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
