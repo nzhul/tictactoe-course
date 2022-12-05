@@ -1,4 +1,5 @@
-﻿using NetworkShared.Attributes;
+﻿using NetworkShared;
+using NetworkShared.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

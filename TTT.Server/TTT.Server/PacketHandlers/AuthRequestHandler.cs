@@ -2,9 +2,8 @@
 using Networkshared.Packets.ClientServer;
 using NetworkShared;
 using NetworkShared.Attributes;
+using NetworkShared.Packets.ServerClient;
 using TTT.Server.Games;
-using TTT.Server.NetworkShared;
-using TTT.Server.NetworkShared.Packets.ServerClient;
 
 namespace TTT.Server.PacketHandlers
 {

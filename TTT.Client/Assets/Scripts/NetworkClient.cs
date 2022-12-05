@@ -1,9 +1,10 @@
 using LiteNetLib;
 using LiteNetLib.Utils;
+using NetworkShared;
+using NetworkShared.Registries;
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using UnityEngine;
 
 public class NetworkClient : MonoBehaviour, INetEventListener
@@ -11,6 +12,8 @@ public class NetworkClient : MonoBehaviour, INetEventListener
     private NetManager _netManager;
     private NetPeer _server;
     private NetDataWriter _writer;
+    private PacketRegistry _packetRegistry;
+    private HandlerRegistry _handlerRegistry;
 
     public event Action OnServerConnected;
 
@@ -45,6 +48,8 @@ public class NetworkClient : MonoBehaviour, INetEventListener
 
     public void Init()
     {
+        _packetRegistry = new PacketRegistry();
+        _handlerRegistry = new HandlerRegistry();
         _writer = new NetDataWriter();
         _netManager = new NetManager(this)
         {
@@ -82,8 +87,11 @@ public class NetworkClient : MonoBehaviour, INetEventListener
 
     public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
     {
-        var data = Encoding.UTF8.GetString(reader.RawData).Replace("\0", "");
-        Debug.Log($"Data received from server: '{data}'");
+        var packetType = (PacketType)reader.GetByte();
+        var packet = ResolvePacket(packetType, reader);
+        var handler = ResolveHandler(packetType);
+        handler.Handle(packet, peer.Id);
+        reader.Recycle();
     }
 
     public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
@@ -100,5 +108,19 @@ public class NetworkClient : MonoBehaviour, INetEventListener
     public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
     {
         Debug.Log("Lost connection to server!");
+    }
+
+    private IPacketHandler ResolveHandler(PacketType packetType)
+    {
+        var handlerType = _handlerRegistry.Handlers[packetType];
+        return (IPacketHandler)Activator.CreateInstance(handlerType);
+    }
+
+    private INetPacket ResolvePacket(PacketType packetType, NetPacketReader reader)
+    {
+        var type = _packetRegistry.PacketTypes[packetType];
+        var packet = (INetPacket)Activator.CreateInstance(type);
+        packet.Deserialize(reader);
+        return packet;
     }
 }
