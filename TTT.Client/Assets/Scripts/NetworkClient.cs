@@ -26,13 +26,14 @@ public class NetworkClient : MonoBehaviour, INetEventListener
 
     private void Awake()
     {
-        if (_instance != null)
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
             _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
