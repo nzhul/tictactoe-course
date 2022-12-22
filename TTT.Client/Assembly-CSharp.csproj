@@ -844,6 +844,9 @@
     <Reference Include="Unity.Mathematics">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
+    <Reference Include="ParrelSync">
+      <HintPath>Library\ScriptAssemblies\ParrelSync.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Services.Core.Analytics">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Analytics.dll</HintPath>
     </Reference>

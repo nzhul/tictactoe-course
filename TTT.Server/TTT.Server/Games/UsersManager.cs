@@ -1,6 +1,5 @@
 ﻿using LiteNetLib;
 using NetworkShared.Packets.ServerClient;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TTT.Server.Data;
@@ -11,11 +10,13 @@ namespace TTT.Server.Games
     {
         private Dictionary<int, ServerConnection> _connections;
         private readonly IUserRepository _userRepository;
+        private NetworkServer _server;
 
-        public UsersManager(IUserRepository userRepository)
+        public UsersManager(IUserRepository userRepository, NetworkServer server)
         {
             _connections = new Dictionary<int, ServerConnection>();
             _userRepository = userRepository;
+            _server = server;
         }
 
         public PlayerNetDto[] GetTopPlayers()
@@ -26,7 +27,7 @@ namespace TTT.Server.Games
                 {
                     Username = u.Id,
                     Score = u.Score,
-                    IsOnline= u.IsOnline,
+                    IsOnline = u.IsOnline,
                 })
                 .Take(9)
                 .ToArray();
@@ -89,6 +90,7 @@ namespace TTT.Server.Games
                 // gamesManager.CloseGame
 
 
+                NotififyOtherPlayers(peerId);
             }
 
             _connections.Remove(peerId);
@@ -102,6 +104,22 @@ namespace TTT.Server.Games
         public int[] GetOtherConnectionIds(int excludedConnectionId)
         {
             return _connections.Keys.Where(v => v != excludedConnectionId).ToArray();
+        }
+
+        private void NotififyOtherPlayers(int excludedConnectionId)
+        {
+            var rmsg = new Net_OnServerStatus
+            {
+                PlayersCount = _userRepository.GetTotalCount(),
+                TopPlayers = GetTopPlayers(),
+            };
+
+            var otherIds = GetOtherConnectionIds(excludedConnectionId);
+
+            foreach (var connectionId in otherIds)
+            {
+                _server.SendClient(connectionId, rmsg);
+            }
         }
     }
 }

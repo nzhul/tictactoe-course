@@ -47,6 +47,24 @@ public class NetworkClient : MonoBehaviour, INetEventListener
         _netManager.PollEvents();
     }
 
+    private void OnDestroy()
+    {
+        if (_server != null)
+        {
+            _netManager.Stop();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        Disconnect();
+    }
+
+    public void Disconnect()
+    {
+        _netManager.DisconnectAll();
+    }
+
     public void Init()
     {
         _packetRegistry = new PacketRegistry();

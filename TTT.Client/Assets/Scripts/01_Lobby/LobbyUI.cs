@@ -3,6 +3,8 @@ using NetworkShared.Packets.ServerClient;
 using TMPro;
 using TTT.PacketHandlers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace TTT.Lobby
 {
@@ -12,11 +14,14 @@ namespace TTT.Lobby
 
         private TextMeshProUGUI _playersOnlineLabel;
         private Transform _topPlayersContainer;
+        private Transform _logoutBtn;
 
         private void Start()
         {
             _topPlayersContainer = transform.Find("topPlayersContainer");
             _playersOnlineLabel = transform.Find("playersOnlineLbl").GetComponent<TextMeshProUGUI>();
+            _logoutBtn = transform.Find("Footer").Find("LogoutBtn");
+            _logoutBtn.GetComponent<Button>().onClick.AddListener(Logout);
 
             OnServerStatusRequestHandler.OnServerStatus += RefreshUI;
             RequestServerStatus();
@@ -42,6 +47,12 @@ namespace TTT.Lobby
                 var instance = Instantiate(_playerRowPrefab, _topPlayersContainer).GetComponent<PlayerRowUI>();
                 instance.Init(player);
             }
+        }
+
+        private void Logout()
+        {
+            NetworkClient.Instance.Disconnect();
+            SceneManager.LoadScene("00_Login");
         }
 
         private void RequestServerStatus()
