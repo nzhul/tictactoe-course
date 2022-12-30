@@ -15,11 +15,22 @@ namespace TTT.Lobby
         private TextMeshProUGUI _playersOnlineLabel;
         private Transform _topPlayersContainer;
         private Transform _logoutBtn;
+        private Transform _loadingUI;
+        private Transform _cancelBtn;
+        private Button _findOpponentBtn;
 
         private void Start()
         {
             _topPlayersContainer = transform.Find("topPlayersContainer");
             _playersOnlineLabel = transform.Find("playersOnlineLbl").GetComponent<TextMeshProUGUI>();
+
+            _findOpponentBtn = transform.Find("findOpponentBtn").GetComponent<Button>();
+            _findOpponentBtn.onClick.AddListener(FindOpponent);
+
+            _loadingUI = transform.Find("loading");
+            _cancelBtn = _loadingUI.Find("CancelBtn");
+            _cancelBtn.GetComponent<Button>().onClick.AddListener(CancelFindOpponent);
+
             _logoutBtn = transform.Find("Footer").Find("LogoutBtn");
             _logoutBtn.GetComponent<Button>().onClick.AddListener(Logout);
 
@@ -30,6 +41,26 @@ namespace TTT.Lobby
         private void OnDestroy()
         {
             OnServerStatusRequestHandler.OnServerStatus -= RefreshUI;
+        }
+
+        private void CancelFindOpponent()
+        {
+            _findOpponentBtn.gameObject.SetActive(true);
+            _loadingUI.gameObject.SetActive(false);
+
+            var msg = new Net_CancelFindOpponentRequest();
+            NetworkClient.Instance.SendServer(msg);
+        }
+
+        private void FindOpponent()
+        {
+            LeanTween.cancelAll();
+            LeanTween.reset();
+            _findOpponentBtn.gameObject.SetActive(false);
+            _loadingUI.gameObject.SetActive(true);
+
+            var msg = new Net_FindOpponentRequest();
+            NetworkClient.Instance.SendServer(msg);
         }
 
         private void RefreshUI(Net_OnServerStatus msg)

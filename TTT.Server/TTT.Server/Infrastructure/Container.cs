@@ -5,6 +5,7 @@ using System;
 using TTT.Server.Data;
 using TTT.Server.Extensions;
 using TTT.Server.Games;
+using TTT.Server.Matchmaking;
 
 namespace TTT.Server.Infrastructure
 {
@@ -26,6 +27,8 @@ namespace TTT.Server.Infrastructure
             services.AddSingleton<PacketRegistry>();
             services.AddSingleton<HandlerRegistry>();
             services.AddSingleton<UsersManager>();
+            services.AddSingleton<Matchmaker>();
+            services.AddSingleton<GamesManager>();
             services.AddSingleton<IUserRepository, InMemoryUserRepository>();
             services.AddPacketHandlers();
         }
