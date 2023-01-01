@@ -86,6 +86,16 @@
     <Compile Include="Assets\Scripts\00_Login\LoginUI.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnServerStatus.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Registries\PacketRegistry.cs" />
+    <Compile Include="Assets\Scripts\Games\GameManager.cs" />
+    <Compile Include="Assets\Scripts\02_Game\GameUI.cs" />
+    <Compile Include="Assets\Scripts\02_Game\TurnUI.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Models\MarkType.cs" />
+    <Compile Include="Assets\Scripts\02_Game\BoardUI.cs" />
+    <Compile Include="Assets\Scripts\02_Game\CellUI.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnMarkCell.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Models\MarkOutcome.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Models\WinLineType.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_MarkCellRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

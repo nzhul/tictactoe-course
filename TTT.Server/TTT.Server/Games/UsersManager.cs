@@ -1,5 +1,6 @@
 ﻿using LiteNetLib;
 using NetworkShared.Packets.ServerClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TTT.Server.Data;
@@ -101,9 +102,21 @@ namespace TTT.Server.Games
             return _connections[peerId];
         }
 
+        public ServerConnection GetConnection(string userId)
+        {
+            return _connections.FirstOrDefault(x => x.Value.User.Id == userId).Value;
+        }
+
         public int[] GetOtherConnectionIds(int excludedConnectionId)
         {
             return _connections.Keys.Where(v => v != excludedConnectionId).ToArray();
+        }
+
+        public void IncreaseScore(string userId)
+        {
+            var user = _userRepository.Get(userId);
+            user.Score += 10;
+            _userRepository.Update(user);
         }
 
         private void NotififyOtherPlayers(int excludedConnectionId)

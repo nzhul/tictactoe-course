@@ -1,3 +1,4 @@
+using Assets.Scripts.Games;
 using Networkshared.Packets.ClientServer;
 using NetworkShared.Packets.ServerClient;
 using System.Collections;
@@ -133,6 +134,7 @@ namespace TTT.Login
             };
 
             NetworkClient.Instance.SendServer(authRequest);
+            GameManager.Instance.MyUsername = _username;
         }
 
         private void ShowLoginError(Net_OnAuthFail msg)
