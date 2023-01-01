@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.PacketHandlers;
+using NetworkShared.Packets.ServerClient;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TTT.Game
@@ -12,6 +14,17 @@ namespace TTT.Game
         private void Start()
         {
             ResetBoard();
+            OnMarkCellHandler.OnMarkCell += UpdateBoard;
+        }
+
+        private void OnDestroy()
+        {
+            OnMarkCellHandler.OnMarkCell -= UpdateBoard;
+        }
+
+        private void UpdateBoard(Net_OnMarkCell msg)
+        {
+            _cells[msg.Index].UpdateUI(msg.Actor);
         }
 
         private void ResetBoard()

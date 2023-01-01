@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\NetworkShared\Models\MarkOutcome.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Models\WinLineType.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_MarkCellRequest.cs" />
+    <Compile Include="Assets\Scripts\PacketHandlers\OnMarkCellHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

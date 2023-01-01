@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Games;
+using NetworkShared.Models;
 using NetworkShared.Packets.ClientServer;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +30,24 @@ namespace TTT.Game
             _button.onClick.AddListener(CellClicked);
             _row = (byte)(index / 3);
             _col = (byte)(index % 3);
+        }
+
+        public void UpdateUI(string actor)
+        {
+            var actorType = GameManager.Instance.ActiveGame.GetPlayerType(actor);
+
+            if (actorType == MarkType.X)
+            {
+                _x.gameObject.SetActive(true);
+                LeanTween.scale(_x.gameObject, new Vector3(1.0f, 1.0f, 1.0f), 0.5f).setEase(LeanTweenType.easeOutBounce);
+            }
+            else
+            {
+                _o.gameObject.SetActive(true);
+                LeanTween.scale(_o.gameObject, new Vector3(1.0f, 1.0f, 1.0f), 0.5f).setEase(LeanTweenType.easeOutBounce);
+            }
+
+            _button.interactable = false;
         }
 
         private void CellClicked()

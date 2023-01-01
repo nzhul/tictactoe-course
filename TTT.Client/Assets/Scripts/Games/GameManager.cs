@@ -109,6 +109,35 @@ namespace Assets.Scripts.Games
             public DateTime StartTime { get; set; }
 
             public DateTime EndTime { get; set; }
+
+            public void SwitchCurrentPlayer()
+            {
+                CurrentUser = GetOpponent(CurrentUser);
+            }
+
+            public MarkType GetPlayerType(string userId)
+            {
+                if (userId == XUser)
+                {
+                    return MarkType.X;
+                }
+                else
+                {
+                    return MarkType.O;
+                }
+            }
+
+            private string GetOpponent(string otherUserId)
+            {
+                if (otherUserId == XUser)
+                {
+                    return OUser;
+                }
+                else
+                {
+                    return XUser;
+                }
+            }
         }
     }
 }
