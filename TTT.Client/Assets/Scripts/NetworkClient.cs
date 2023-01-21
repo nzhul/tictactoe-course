@@ -80,6 +80,8 @@ public class NetworkClient : MonoBehaviour, INetEventListener
     public void Connect()
     {
         _netManager.Connect("localhost", 9050, "");
+        //_netManager.Connect("ttt-server.f6f6h5acdthqfcey.westeurope.azurecontainer.io", 9050, ""); // Azure container instances
+        //_netManager.Connect("161.35.83.80", 9050, ""); // digital ocean droplet
     }
 
     public void SendServer<T>(T packet, DeliveryMethod deliveryMethod = DeliveryMethod.ReliableOrdered) where T : INetSerializable

@@ -61,8 +61,6 @@ namespace TTT.Game
             _button.interactable = false;
             GameManager.Instance.InputsEnabled = false;
 
-            Debug.Log("Sending MarkCellRequest to server!");
-
             var msg = new Net_MarkCellRequest
             {
                 Index = _index,

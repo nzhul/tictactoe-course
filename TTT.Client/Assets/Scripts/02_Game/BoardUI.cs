@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.PacketHandlers;
-using NetworkShared.Packets.ServerClient;
+﻿using NetworkShared.Packets.ServerClient;
 using System.Collections.Generic;
+using TTT.PacketHandlers;
 using UnityEngine;
 
 namespace TTT.Game
@@ -15,11 +15,13 @@ namespace TTT.Game
         {
             ResetBoard();
             OnMarkCellHandler.OnMarkCell += UpdateBoard;
+            OnNewRoundHandler.OnNewRound += ResetBoard;
         }
 
         private void OnDestroy()
         {
             OnMarkCellHandler.OnMarkCell -= UpdateBoard;
+            OnNewRoundHandler.OnNewRound -= ResetBoard;
         }
 
         private void UpdateBoard(Net_OnMarkCell msg)

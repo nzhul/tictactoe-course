@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\NetworkShared\Attributes\HandlerRegisterAttributes.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanTween.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LTDescr.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_SurrenderRequest.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanTweenExt.cs" />
     <Compile Include="Assets\Scripts\02_Game\TurnUI.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LTSeq.cs" />
@@ -66,30 +67,43 @@
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_FindOpponentRequest.cs" />
     <Compile Include="Assets\Scripts\PacketHandlers\OnServerStatusRequestHandler.cs" />
     <Compile Include="Assets\Scripts\01_Lobby\LobbyUI.cs" />
+    <Compile Include="Assets\Scripts\PacketHandlers\OnPlayAgainHandler.cs" />
     <Compile Include="Assets\Scripts\PacketHandlers\OnMarkCellHandler.cs" />
     <Compile Include="Assets\Scripts\02_Game\CellUI.cs" />
+    <Compile Include="Assets\Scripts\02_Game\EndRoundUI.cs" />
+    <Compile Include="Assets\Scripts\PacketHandlers\OnSurrenderHandler.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnAuthFail.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Models\WinLineType.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_PlayAgainRequest.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnPlayAgain.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LTDescrOptional.cs" />
     <Compile Include="Assets\Scripts\PacketHandlers\OnAuthHandler.cs" />
     <Compile Include="Assets\Scripts\NetworkClient.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\IPacketHandler.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnNewRound.cs" />
     <Compile Include="Assets\Scripts\UI\Tweener.cs" />
+    <Compile Include="Assets\Scripts\PacketHandlers\OnNewRoundHandler.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_QuitGameRequest.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Registries\HandlerRegistry.cs" />
+    <Compile Include="Assets\Scripts\PacketHandlers\OnQuitGameHandler.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanAudio.cs" />
     <Compile Include="Assets\Scripts\02_Game\GameUI.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Models\MarkType.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_ServerStatusRequest.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnQuitGame.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_AuthRequest.cs" />
     <Compile Include="Assets\Scripts\Games\GameManager.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnStartGame.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnSurrender.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanSmooth.cs" />
     <Compile Include="Assets\Scripts\02_Game\BoardUI.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Models\MarkOutcome.cs" />
+    <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_AcceptPlayAgainRequest.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_CancelFindOpponentRequest.cs" />
     <Compile Include="Assets\Lib\LeanTween\Framework\LeanTest.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnAuth.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\PacketType.cs" />
+    <Compile Include="Assets\Scripts\02_Game\WinLineUI.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnMarkCell.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ClientServer\Net_MarkCellRequest.cs" />
     <Compile Include="Assets\Scripts\PacketHandlers\OnAuthFailHandler.cs" />
@@ -97,7 +111,6 @@
     <Compile Include="Assets\Scripts\00_Login\LoginUI.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Packets\ServerClient\Net_OnServerStatus.cs" />
     <Compile Include="Assets\Scripts\NetworkShared\Registries\PacketRegistry.cs" />
-    <Compile Include="Assets\Scripts\02_Game\WinLineUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -108,6 +121,7 @@
     <None Include="Assets\Lib\LeanTween\License.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Shaders\Blur.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />

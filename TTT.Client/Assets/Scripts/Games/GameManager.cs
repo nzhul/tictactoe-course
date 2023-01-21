@@ -127,6 +127,11 @@ namespace Assets.Scripts.Games
                 }
             }
 
+            public void Reset()
+            {
+                CurrentUser = XUser;
+            }
+
             private string GetOpponent(string otherUserId)
             {
                 if (otherUserId == XUser)

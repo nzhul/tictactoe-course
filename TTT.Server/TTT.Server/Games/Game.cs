@@ -84,7 +84,7 @@ namespace TTT.Server.Games
             CurrentUser = GetOpponent(CurrentUser);
         }
 
-        internal void AddWin(string winnerId)
+        public void AddWin(string winnerId)
         {
             var winnerType = GetPlayerType(winnerId);
             if (winnerType == MarkType.X)
@@ -94,6 +94,42 @@ namespace TTT.Server.Games
             else
             {
                 OWins++;
+            }
+        }
+
+        public void SetRematchReadiness(string userId)
+        {
+            var playerType = GetPlayerType(userId);
+            if (playerType == MarkType.X)
+            {
+                XWantRematch = true;
+            }
+            else
+            {
+                OWantsRematch = true;
+            }
+        }
+
+        public bool BothPlayersReady()
+        {
+            return XWantRematch && OWantsRematch;
+        }
+
+        public void NewRound()
+        {
+            CurrentRoundStartTime = DateTime.UtcNow;
+            ResetGrid();
+            CurrentUser = XUser;
+        }
+
+        private void ResetGrid()
+        {
+            for (int row = 0; row < GRID_SIZE; row++)
+            {
+                for (int col = 0; col < GRID_SIZE; col++)
+                {
+                    Grid[row, col] = 0;
+                }
             }
         }
 

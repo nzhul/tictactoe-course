@@ -23,6 +23,7 @@ namespace TTT.Login
         private Transform _passwordError;
         private Transform _loadingUI;
         private Transform _loginError;
+        private Transform _quitBtn;
 
         private bool _isConnected;
 
@@ -45,6 +46,9 @@ namespace TTT.Login
 
             _loadingUI = transform.Find("Loading");
             _loginError = transform.Find("LoginError");
+
+            _quitBtn = transform.Find("Footer").Find("QuitBtn");
+            _quitBtn.GetComponent<Button>().onClick.AddListener(QuitApplication);
 
             OnAuthFailHandler.OnAuthFail += ShowLoginError;
 
@@ -142,6 +146,11 @@ namespace TTT.Login
             EnableLoginButton(false);
             _loadingUI.gameObject.SetActive(false);
             _loginError.gameObject.SetActive(true);
+        }
+
+        private void QuitApplication()
+        {
+            Application.Quit();
         }
     }
 }

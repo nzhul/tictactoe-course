@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.Games;
-using Assets.Scripts.PacketHandlers;
 using NetworkShared.Models;
 using NetworkShared.Packets.ServerClient;
 using System.Collections.Generic;
+using TTT.PacketHandlers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +22,7 @@ namespace TTT.Game
             _image = GetComponent<Image>();
             _rt = GetComponent<RectTransform>();
             OnMarkCellHandler.OnMarkCell += HandleMarkCell;
+            OnNewRoundHandler.OnNewRound += ResetLine;
 
             _lineConfigs = InitLineConfigs();
         }
@@ -29,6 +30,14 @@ namespace TTT.Game
         private void OnDestroy()
         {
             OnMarkCellHandler.OnMarkCell -= HandleMarkCell;
+            OnNewRoundHandler.OnNewRound -= ResetLine;
+        }
+
+        private void ResetLine()
+        {
+            _image.enabled = false;
+            _image.fillAmount = 0;
+            SetupLine(_lineConfigs[WinLineType.ColMid]);
         }
 
         private void HandleMarkCell(Net_OnMarkCell msg)
@@ -55,7 +64,7 @@ namespace TTT.Game
             }
         }
 
-        private void SetupLine(LineConfig config, string actorId)
+        private void SetupLine(LineConfig config, string actorId = default)
         {
             Color color = _xColor;
 

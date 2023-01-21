@@ -5,7 +5,7 @@ using NetworkShared.Models;
 using NetworkShared.Packets.ServerClient;
 using System;
 
-namespace Assets.Scripts.PacketHandlers
+namespace TTT.PacketHandlers
 {
     [HandlerRegister(PacketType.OnMarkCell)]
     public class OnMarkCellHandler : IPacketHandler
