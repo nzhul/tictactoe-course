@@ -1,4 +1,4 @@
-# tictactoe-course
+# Unity Multiplayer: Create and host dedicated game server (Source Code)
 
 This repository contains the full code for my course on Udemy called "Unity Multiplayer: Create and host dedicated game server"
 
