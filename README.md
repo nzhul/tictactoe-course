@@ -1,4 +1,4 @@
-# Unity Multiplayer: Create and host dedicated game server (Source Code)
+# Unity Multiplayer: Create and host dedicated game server.
 
 This repository contains the full code for my course on Udemy called "Unity Multiplayer: Create and host dedicated game server"
 
